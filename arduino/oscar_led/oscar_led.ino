@@ -66,7 +66,7 @@ void setup() {
 // the loop routine runs over and over again forever:
 void loop() {
   // TODO: set state = 1 if detecting motion.
-  state = digitalRead(motionSensor); // later remove this line, added by Sumer to default state to 1 for audio testing
+  state = digitalRead(motionSensor);
   if(state==1) {
     Serial.println("motion detected");
     // Change random() to a call to IR sensor function
@@ -111,15 +111,8 @@ int getTrashLevel() {
 }
 
 void playSound(int time) {
-  wtv020sd16p.playVoice(0);
   wtv020sd16p.asyncPlayVoice(4);
   delay(time); // This indicates how long the song will play for 
-//  wtv020sd16p.pauseVoice();
-//  delay(2000); 
-//  wtv020sd16p.asyncPlayVoice(1);
-//  delay(40000);
-  //wtv020sd16p.asyncPlayVoice(2);
-  //delay(5000);
   wtv020sd16p.stopVoice();
   Serial.println("Music done");  
 }
