@@ -26,7 +26,7 @@ int redId = 0;
 DistanceGP2Y0A21YK Dist;
 int infraRed = A0;
 int distance;
-int maxDistance = 80;
+int maxDistance = 40;
 
 //Motion
 int calibrationTime = 30;   
@@ -90,8 +90,8 @@ void loop() {
     }
     if(trashLevel<=redId) {
       digitalWrite(red, HIGH);
+      playSound(10000);
     }
-//    playSound();
  
     // TODO: set state back to 0 (idle)
   } else {
@@ -100,26 +100,28 @@ void loop() {
     digitalWrite(yellow, LOW);
     digitalWrite(red, LOW); 
   }
-  delay(3000);
+  delay(1000);
 }
 
 int getTrashLevel() {
   int distance = Dist.getDistanceCentimeter();
+  Serial.println(distance);
   distance = map(distance, 0, maxDistance, 0, 3);
   return distance;
 }
 
-void playSound() {
+void playSound(int time) {
   wtv020sd16p.playVoice(0);
-  wtv020sd16p.asyncPlayVoice(1);
-  delay(40000); // This indicates how long the song will play for 
-  wtv020sd16p.pauseVoice();
-  delay(2000); 
-  wtv020sd16p.asyncPlayVoice(1);
-  delay(40000);
+  wtv020sd16p.asyncPlayVoice(4);
+  delay(time); // This indicates how long the song will play for 
+//  wtv020sd16p.pauseVoice();
+//  delay(2000); 
+//  wtv020sd16p.asyncPlayVoice(1);
+//  delay(40000);
   //wtv020sd16p.asyncPlayVoice(2);
   //delay(5000);
-  wtv020sd16p.stopVoice();  
+  wtv020sd16p.stopVoice();
+  Serial.println("Music done");  
 }
 
 
