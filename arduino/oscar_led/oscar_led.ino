@@ -26,7 +26,7 @@ int redId = 0;
 DistanceGP2Y0A21YK Dist;
 int infraRed = A0;
 int distance;
-int maxDistance = 40;
+int maxDistance = 30;
 
 //Motion
 int calibrationTime = 30;   
@@ -90,17 +90,16 @@ void loop() {
     }
     if(trashLevel<=redId) {
       digitalWrite(red, HIGH);
-      playSound(10000);
+      playSound(22000);
     }
+    delay(3000);
  
-    // TODO: set state back to 0 (idle)
-  } else {
     digitalWrite(blue, LOW);
     digitalWrite(green, LOW);
     digitalWrite(yellow, LOW);
     digitalWrite(red, LOW); 
-  }
-  delay(1000);
+    // TODO: set state back to 0 (idle)
+  } 
 }
 
 int getTrashLevel() {
