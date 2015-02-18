@@ -9,8 +9,6 @@ int busyPin = 5;  // The pin number of the busy pin.
 
 Wtv020sd16p wtv020sd16p(resetPin,clockPin,dataPin,busyPin);
  
-// Pin 13 has an LED connected on most Arduino boards.
-// give it a name:
 int blue = 13;
 int green = 12;
 int yellow = 11;
@@ -65,11 +63,10 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  // TODO: set state = 1 if detecting motion.
+  // state = 1 if detecting motion.
   state = digitalRead(motionSensor);
   if(state==1) {
     Serial.println("motion detected");
-    // Change random() to a call to IR sensor function
     // The function should return
     // - 0 for full
     // - 1 for almost full
@@ -98,7 +95,6 @@ void loop() {
     digitalWrite(green, LOW);
     digitalWrite(yellow, LOW);
     digitalWrite(red, LOW); 
-    // TODO: set state back to 0 (idle)
   } 
 }
 
