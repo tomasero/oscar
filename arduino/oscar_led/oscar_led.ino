@@ -1,7 +1,6 @@
 #include <Wtv020sd16p.h>
 #include <DistanceGP2Y0A21YK.h>
 
-
 int resetPin = 2;  // The pin number of the reset pin.
 int clockPin = 3;  // The pin number of the clock pin.
 int dataPin = 4;  // The pin number of the data pin.
@@ -9,6 +8,8 @@ int busyPin = 5;  // The pin number of the busy pin.
 
 Wtv020sd16p wtv020sd16p(resetPin,clockPin,dataPin,busyPin);
  
+// Pin 13 has an LED connected on most Arduino boards.
+// give it a name:
 int blue = 13;
 int green = 12;
 int yellow = 11;
@@ -24,7 +25,7 @@ int redId = 0;
 DistanceGP2Y0A21YK Dist;
 int infraRed = A0;
 int distance;
-int maxDistance = 30;
+int maxDistance = 30; //Change this to your trashcan height
 
 //Motion
 int calibrationTime = 30;   
@@ -63,7 +64,7 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  // state = 1 if detecting motion.
+  // TODO: set state = 1 if detecting motion.
   state = digitalRead(motionSensor);
   if(state==1) {
     Serial.println("motion detected");
@@ -73,8 +74,6 @@ void loop() {
     // - 2 for half
     // - 3 for empty
     trashLevel = getTrashLevel();
-    Serial.print("trash level: ");
-    Serial.println(trashLevel);
 
     if(trashLevel<=blueId) {
       digitalWrite(blue, HIGH);
@@ -95,12 +94,12 @@ void loop() {
     digitalWrite(green, LOW);
     digitalWrite(yellow, LOW);
     digitalWrite(red, LOW); 
+    // TODO: set state back to 0 (idle)
   } 
 }
 
 int getTrashLevel() {
   int distance = Dist.getDistanceCentimeter();
-  Serial.println(distance);
   distance = map(distance, 0, maxDistance, 0, 3);
   return distance;
 }
@@ -109,7 +108,6 @@ void playSound(int time) {
   wtv020sd16p.asyncPlayVoice(4);
   delay(time); // This indicates how long the song will play for 
   wtv020sd16p.stopVoice();
-  Serial.println("Music done");  
 }
 
 
